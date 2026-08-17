@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 /* ============================= TOKENS ============================= */
 :root{
@@ -344,28 +345,120 @@ html[data-theme="dark"] .doc-tags span{color:#fff;}
 .camp-card p{font-size:.82rem; color:var(--ink-soft); line-height:1.55;}
 
 /* ============================= GALLERY ============================= */
-.gallery{padding:120px 0; background:var(--bg);}
-.ba-wrap{max-width:820px; margin:0 auto;}
+.gallery{
+  padding:120px 0;
+  background:var(--bg);
+}
+
+.ba-wrap{
+  max-width:900px;
+  margin:0 auto;
+}
+
 .ba-slider{
-  position:relative; border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-lg);
-  aspect-ratio:16/9; cursor:ew-resize; user-select:none;
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:0 20px 50px rgba(0,0,0,.15);
+  cursor:ew-resize;
 }
-.ba-slider svg{position:absolute; inset:0; width:100%; height:100%;}
-.ba-after{position:absolute; inset:0; width:100%; height:100%; overflow:hidden; clip-path:inset(0 50% 0 0);}
+
+/* BEFORE IMAGE */
+.ba-before,
+.ba-after{
+  position:absolute;
+  inset:0;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:cover;
+}
+
+/* Remove hardcoded images to allow JS injection */
+.ba-before, .ba-after{
+  background-color: var(--line);
+}
+
+.ba-after{
+  clip-path: inset(0 50% 0 0);
+}
+
+/* Divider Line */
 .ba-handle{
-  position:absolute; top:0; bottom:0; left:50%; width:3px; background:#fff; transform:translateX(-50%);
-  box-shadow:0 0 0 4000px rgba(0,0,0,0) ; z-index:3;
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:50%;
+  width:3px;
+  background:#fff;
+  transform:translateX(-50%);
+  z-index:3;
 }
+
 .ba-knob{
-  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:52px; height:52px; border-radius:50%;
-  background:#fff; box-shadow:var(--shadow-lg); display:flex; align-items:center; justify-content:center; gap:2px; color:var(--navy); font-size:1rem;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#0a2c5c;
+  font-size:18px;
+  font-weight:700;
 }
-.ba-label{position:absolute; top:18px; padding:7px 16px; border-radius:var(--radius-pill); font-weight:700; font-size:.75rem; letter-spacing:.05em; text-transform:uppercase; color:#fff; z-index:2;}
-.ba-label.before{left:18px; background:rgba(10,44,92,.65);}
-.ba-label.after{right:18px; background:rgba(47,214,176,.75);}
-.ba-dots{display:flex; justify-content:center; gap:10px; margin-top:28px;}
-.ba-dots button{width:10px; height:10px; border-radius:50%; border:none; background:var(--line); transition:all .3s ease;}
-.ba-dots button.active{background:var(--azure); width:28px; border-radius:6px;}
+
+.ba-label{
+  position:absolute;
+  top:18px;
+  padding:8px 18px;
+  border-radius:999px;
+  color:#fff;
+  font-size:.75rem;
+  font-weight:700;
+  text-transform:uppercase;
+  z-index:4;
+}
+
+.ba-label.before{
+  left:18px;
+  background:rgba(10,44,92,.75);
+}
+
+.ba-label.after{
+  right:18px;
+  background:rgba(47,214,176,.85);
+}
+
+.ba-dots{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  margin-top:24px;
+}
+
+.ba-dots button{
+  width:10px;
+  height:10px;
+  border:none;
+  padding:0;
+  border-radius:999px;
+  background:var(--line);
+  cursor:pointer;
+  transition:all .3s ease;
+}
+
+.ba-dots button.active{
+  width:30px;
+  background:var(--azure);
+}
 
 /* ============================= TESTIMONIALS ============================= */
 .testi{padding:120px 0; background:var(--bg-soft); overflow:hidden;}
@@ -373,7 +466,7 @@ html[data-theme="dark"] .doc-tags span{color:#fff;}
 .testi-track{display:flex; transition:transform .6s var(--ease);}
 .testi-slide{flex:0 0 100%; padding:0 8px;}
 .testi-card{padding:48px; text-align:center; position:relative;}
-.testi-quote{font-size:3rem; font-family:var(--font-display); color:var(--gold); line-height:0; position:relative; top:14px;}
+.testi-quote{font-size:3rem; font-family:var(--font-display); color:var(--gold); line-height:0; position:relative; top:5px;}
 .testi-text{font-size:1.2rem; line-height:1.75; color:var(--ink); font-weight:500; margin-bottom:26px;}
 .testi-stars{color:var(--gold); letter-spacing:3px; margin-bottom:18px; font-size:1rem;}
 .testi-person{display:flex; align-items:center; justify-content:center; gap:14px;}
@@ -413,6 +506,56 @@ html[data-theme="dark"] .doc-tags span{color:#fff;}
 .process-step:hover .process-num{background:var(--grad-brand); color:#fff; transform:scale(1.1); box-shadow:var(--shadow-md);}
 .process-step h4{font-size:.98rem; margin-bottom:8px;}
 .process-step p{font-size:.82rem; color:var(--ink-soft); line-height:1.55;}
+
+/* ============================= SCHOOL 3D CAROUSEL ============================= */
+.school-gallery {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-top: 40px;
+  perspective: 1200px;
+}
+.carousel-3d-item {
+  position: absolute;
+  width: 320px;
+  height: 450px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  transition: all 1.9s cubic-bezier(0.25, 1, 0.5, 1);
+  cursor: pointer;
+  will-change: transform, opacity;
+  background: var(--white);
+}
+.carousel-3d-item::before {
+  content: ""; position: absolute; inset: 0;
+  border-radius: var(--radius-lg); padding: 3px;
+  background: var(--grad-brand);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0; transition: opacity 0.8s; z-index: 10; pointer-events: none;
+}
+.carousel-3d-item.active::before {
+  opacity: 1;
+}
+.carousel-3d-item.active {
+  box-shadow: 0 15px 40px -10px rgba(10, 44, 92, 0.4);
+}
+.carousel-3d-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 1.2s;
+}
+.carousel-3d-item:not(.active) img {
+  filter: brightness(0.65);
+}
 
 /* ============================= INSURANCE ============================= */
 .insurance{padding:120px 0; background:var(--bg);}
@@ -549,8 +692,25 @@ html[data-theme="dark"] .fca-text{color:#fff;}
 .fca-text small{display:block; font-weight:500; font-size:.75rem; color:var(--ink-soft);}
 .fca-actions{display:flex; gap:10px;}
 
+/* ============================= SCREENING ============================= */
+.screening{padding:80px 0; background:var(--bg-soft);}
+.screening-content{max-width:960px; margin:40px auto 0; line-height:1.7;}
+.screening-intro{text-align:center; margin-bottom:30px; font-size:1.1rem; color:var(--navy);}
+.screening-intro strong{color:var(--azure);}
+.screening-content h3{color:var(--navy); margin:30px 0 15px; font-size:1.4rem;}
+.screening-content p{margin-bottom:20px; color:var(--text);}
+.screening-lists{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:40px;}
+.list-card{padding:30px; text-align:left;}
+.list-card.full-span{grid-column:1 / -1;}
+.list-card h4{color:var(--navy); margin-bottom:12px; font-size:1.2rem;}
+.list-card ul{padding-left:22px; color:var(--text);}
+.list-card li{margin-bottom:10px;}
+
 /* ============================= RESPONSIVE ============================= */
 @media (max-width:1080px){
+  .nav-links, .call-chip span.txt{display:none;}
+  .hamburger{display:flex; width:42px; height:42px; align-items:center; justify-content:center; border-radius:50%; background:var(--bg-soft); border:1px solid var(--line);}
+  .call-chip{width:42px; height:42px; padding:0; justify-content:center;}
   .hero-grid, .about-grid, .booking-grid, .map-grid{grid-template-columns:1fr;}
   .doc-grid{grid-template-columns:repeat(2,1fr);}
   .services-grid{grid-template-columns:repeat(2,1fr);}
@@ -564,17 +724,34 @@ html[data-theme="dark"] .fca-text{color:#fff;}
 }
 @media (max-width:760px){
   .container{padding:0 20px;}
-  .nav-links, .call-chip span.txt{display:none;}
-  .hamburger{display:flex; width:42px; height:42px; align-items:center; justify-content:center; border-radius:50%; background:var(--bg-soft); border:1px solid var(--line);}
-  .doc-grid, .services-grid, .why-grid, .counters, .tech-grid, .camps-grid, .process-track{grid-template-columns:repeat(2,1fr);}
+  .nav-inner { padding:8px 12px; }
+  .nav-actions { gap:6px; }
+  .brand img{height:34px;}
+  .brand-text{font-size:.9rem;}
+  .btn-sm{padding:8px 14px; font-size:.8rem;}
+  .doc-grid, .services-grid, .why-grid, .counters, .tech-grid, .camps-grid{grid-template-columns:repeat(2,1fr);}
+  .screening-lists{grid-template-columns:1fr;}
+  .school-gallery{height: 340px; margin-top: 20px;}
+  .carousel-3d-item{width: 190px; height: 260px;}
+  .list-card.full-span{grid-column:1;}
+  .process-track{grid-template-columns:1fr; row-gap:30px;}
+  .ba-slider{aspect-ratio:4/3;}
   .form-grid{grid-template-columns:1fr;}
   .footer-grid{grid-template-columns:1fr;}
   .emg-card{flex-direction:column; align-items:flex-start;}
   .floating-widgets{right:16px; bottom:16px;}
 }
 @media (max-width:480px){
-  .doc-grid, .services-grid, .why-grid, .counters, .tech-grid, .process-track{grid-template-columns:1fr 1fr;}
-  .services-grid{grid-template-columns:1fr;}
+  .nav-actions { gap:4px; }
+  .theme-toggle, .hamburger, .call-chip { width:36px; height:36px; font-size:.9rem; }
+  .btn-sm{padding:8px 10px; font-size:.76rem;}
+  .brand{gap:6px;}
+  .brand img{height:28px;}
+  .brand-text{font-size:.82rem;}
+  .brand-text span{font-size:.56rem;}
+  .doc-grid, .services-grid, .why-grid, .counters, .tech-grid, .camps-grid, .process-track{grid-template-columns:1fr;}
+  .ba-slider{aspect-ratio:1/1;}
+  .ba-label{display:none;}
 }
 
 @media (prefers-reduced-motion: reduce){
@@ -602,10 +779,10 @@ html[data-theme="dark"] .fca-text{color:#fff;}
       <a href="#contact">Contact</a>
     </div>
     <div class="nav-actions">
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
-      <a href="tel:+919498837716" class="call-chip"><span>📞</span><span class="txt">94988&nbsp;37716</span></a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+      <a href="tel:+919498837716" class="call-chip"><span><i class="fa-solid fa-phone"></i></span><span class="txt">94988&nbsp;37716</span></a>
       <a href="#booking" class="btn btn-primary btn-sm">Book Visit</a>
-      <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
     </div>
   </div>
 </nav>
@@ -631,43 +808,14 @@ html[data-theme="dark"] .fca-text{color:#fff;}
     </div>
     <div class="hero-visual reveal-scale">
       <div class="hero-art" data-parallax="-0.05">
-        <svg viewBox="0 0 500 560" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="heroBg" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#0a2c5c"/><stop offset="1" stop-color="#35d8f0"/>
-            </linearGradient>
-            <radialGradient id="glow1" cx="50%" cy="30%" r="60%">
-              <stop offset="0" stop-color="#ffffff" stop-opacity=".25"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
-          <rect width="500" height="560" fill="url(#heroBg)"/>
-          <rect width="500" height="560" fill="url(#glow1)"/>
-          <circle cx="250" cy="230" r="150" fill="#ffffff" opacity=".08"/>
-          <circle cx="250" cy="230" r="105" fill="#ffffff" opacity=".10"/>
-          <!-- simple friendly face silhouette with a bright smile -->
-          <ellipse cx="250" cy="210" rx="92" ry="104" fill="#ffe0c2" opacity=".95"/>
-          <path d="M170 195 q80 -46 160 0" stroke="#0a2c5c" stroke-width="6" fill="none" stroke-linecap="round" opacity=".25"/>
-          <ellipse cx="212" cy="200" rx="9" ry="12" fill="#0a2c5c" opacity=".8"/>
-          <ellipse cx="288" cy="200" rx="9" ry="12" fill="#0a2c5c" opacity=".8"/>
-          <path d="M200 250 q50 46 100 0" stroke="#0a2c5c" stroke-width="7" fill="none" stroke-linecap="round" opacity=".3"/>
-          <path d="M204 254 q46 34 92 0 q-6 22 -46 24 q-40 -2 -46 -24 Z" fill="#ffffff"/>
-          <rect x="204" y="254" width="92" height="10" rx="4" fill="#ffffff"/>
-          <!-- tooth + cross echo of brand mark -->
-          <g transform="translate(330,370) scale(0.9)" opacity=".9">
-            <path d="M0 0 C -30 -10 -55 10 -55 45 C -55 85 -35 130 -18 130 C -8 130 -8 100 0 100 C 8 100 8 130 18 130 C 35 130 55 85 55 45 C 55 10 30 -10 0 0 Z" fill="#ffffff" opacity=".9"/>
-            <rect x="-9" y="35" width="18" height="55" rx="4" fill="#35d8f0"/>
-            <rect x="-27" y="53" width="54" height="18" rx="4" fill="#35d8f0"/>
-          </g>
-          <circle cx="120" cy="420" r="26" fill="#ffffff" opacity=".14"/>
-          <circle cx="90" cy="120" r="14" fill="#ffffff" opacity=".2"/>
-        </svg>
+        <img src="images/hero-right-img1.png" alt="Sai Dental Clinic Experience" style="width:100%; height:100%; object-fit:cover; display:block;">
       </div>
       <div class="floating-card glass fc-1">
-        <div class="fc-icon">✨</div>
+        <div class="fc-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
         <div><div class="fc-title">Painless Care</div><div class="fc-sub">Sedation-assisted comfort</div></div>
       </div>
       <div class="floating-card glass fc-2">
-        <div class="fc-icon">🏆</div>
+        <div class="fc-icon"><i class="fa-solid fa-trophy"></i></div>
         <div><div class="fc-title">Since 2022</div><div class="fc-sub">Trusted care in Kodumudi</div></div>
       </div>
     </div>
@@ -680,31 +828,7 @@ html[data-theme="dark"] .fca-text{color:#fff;}
   <div class="container about-grid">
     <div class="about-visual reveal-scale">
       <div class="about-frame">
-        <svg viewBox="0 0 460 520" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="aboutBg" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#123a72"/><stop offset="1" stop-color="#1e9be9"/>
-            </linearGradient>
-          </defs>
-          <rect width="460" height="520" fill="url(#aboutBg)"/>
-          <rect x="30" y="40" width="400" height="230" rx="20" fill="#ffffff" opacity=".08"/>
-          <rect x="55" y="70" width="180" height="16" rx="8" fill="#ffffff" opacity=".55"/>
-          <rect x="55" y="98" width="260" height="10" rx="5" fill="#ffffff" opacity=".3"/>
-          <rect x="55" y="118" width="220" height="10" rx="5" fill="#ffffff" opacity=".3"/>
-          <circle cx="360" cy="150" r="55" fill="#35d8f0" opacity=".25"/>
-          <circle cx="360" cy="150" r="34" fill="#ffffff" opacity=".9"/>
-          <path d="M345 150 l10 10 l20 -24" stroke="#0a2c5c" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          <rect x="30" y="300" width="190" height="190" rx="20" fill="#ffffff" opacity=".92"/>
-          <circle cx="125" cy="365" r="34" fill="#e8f5fc"/>
-          <path d="M108 365 q17 -22 34 0 q-17 26 -34 0Z" fill="#1e9be9"/>
-          <rect x="60" y="415" width="130" height="10" rx="5" fill="#0a2c5c" opacity=".5"/>
-          <rect x="60" y="435" width="90" height="8" rx="4" fill="#0a2c5c" opacity=".25"/>
-          <rect x="250" y="300" width="180" height="190" rx="20" fill="#ffffff" opacity=".14"/>
-          <rect x="270" y="330" width="140" height="90" rx="14" fill="#ffffff" opacity=".9"/>
-          <circle cx="300" cy="375" r="10" fill="#c9a227"/>
-          <circle cx="340" cy="375" r="10" fill="#35d8f0"/>
-          <circle cx="380" cy="375" r="10" fill="#0a2c5c"/>
-        </svg>
+        <img src="images/hero-right-img.png" alt="About Sai Dental Clinic" style="width:100%; height:100%; object-fit:cover; display:block;">
       </div>
       <div class="about-badge glass">
         <div class="num">2022</div>
@@ -718,9 +842,9 @@ html[data-theme="dark"] .fca-text{color:#fff;}
         <p>Dr. Rithani founded Sai Dental Clinic in Kodumudi in 2022, and has been its Chief Dental Surgeon ever since. She is a registered dentist with the Dental Council of India, a member of the Indian Dental Association, and part of Colgate's Oral Health Movement. She completed her BDS at Rajas Dental College and Hospital (2010–2015, under The Tamil Nadu Dr. MGR Medical University), followed by fellowships in clinical endodontics at Mohan's Micro Dentistry and oral surgery at Prabhu Dental Hospital. Before founding the clinic, she practised at the I-tooth chain of dental hospitals in Karur (2015–2017) and Tamara Dental Clinic in Chennai (2018–2019) — bringing close to a decade of experience to every patient in Kodumudi.</p>
       </div>
       <div class="about-points reveal">
-        <div class="about-point"><div class="ic">🦷</div><div><h4>Multi-speciality, under one roof</h4><p>General dentistry, orthodontics, oral surgery, periodontics, prosthodontics, cosmetic, and endodontic care — guided by a team of specialist consultants.</p></div></div>
-        <div class="about-point"><div class="ic">🔬</div><div><h4>Modern diagnostic technology</h4><p>Equipped with digital X-ray, intraoral camera, and intraoral scanners for faster, more accurate diagnosis and treatment.</p></div></div>
-        <div class="about-point"><div class="ic">💛</div><div><h4>Care for every age</h4><p>From paediatric first visits to full-mouth rehabilitation — unhurried consultations built around your comfort.</p></div></div>
+        <div class="about-point"><div class="ic"><i class="fa-solid fa-tooth"></i></div><div><h4>Multi-speciality, under one roof</h4><p>General dentistry, orthodontics, oral surgery, periodontics, prosthodontics, cosmetic, and endodontic care — guided by a team of specialist consultants.</p></div></div>
+        <div class="about-point"><div class="ic"><i class="fa-solid fa-microscope"></i></div><div><h4>Modern diagnostic technology</h4><p>Equipped with digital X-ray, intraoral camera, and intraoral scanners for faster, more accurate diagnosis and treatment.</p></div></div>
+        <div class="about-point"><div class="ic"><i class="fa-solid fa-heart"></i></div><div><h4>Care for every age</h4><p>From paediatric first visits to full-mouth rehabilitation — unhurried consultations built around your comfort.</p></div></div>
       </div>
     </div>
   </div>
@@ -780,41 +904,93 @@ html[data-theme="dark"] .fca-text{color:#fff;}
   </div>
 </section>
 
+<!-- ============================= SCREENING PROGRAM ============================= -->
+<section class="screening" id="screening">
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow">School Dental Screening Program</div>
+      <h2>Healthy Smiles, <span class="grad-text">Better Learning.</span></h2>
+      <p>A comprehensive dental screening program for school children.</p>
+    </div>
+    
+    <div class="screening-content reveal">
+      <div class="screening-intro">
+        <p><strong>Dr. Rithani K.R BDS., FCE.,</strong><br>Dental Surgeon<br>Sai Dental Clinic<br>Kodumudi</p>
+      </div>
+
+      <div class="content-block">
+        <h3>Why dental screening is important for school going children?</h3>
+        <p>School play's vital role in shaping a person's life in various ways. It is not only a place for academic learning but also a foundation for developing values, discipline, communication skills, teamwork and leadership qualities. Schools help children build confidence for future challenges and prepare them becoming a responsible member of society.</p>
+        <p>On the other hand, poor dental health can negatively affect a child's school in many ways. Tooth pain and infections can make it difficult to eat, sleep and concentrate in class, leading to poor academic performance and absenteeism. Dental problems such as bad breath, decayed teeth or irregular teeth may reduce self-confidence, making children hesitant to participate in discussions, cultural activities or leadership roles. As a result, poor oral health can impact a child's learning, social interactions, overall well-being and personal development. Moreover, children who develop oral hygiene practice at early age have lesser probability to develop dental problems throughout their life.</p>
+        <p>Healthy students learn better, participate better, and lead better. School dental screening helps identify and address dental problems earlier, which is essential for child's overall well-being. School dental screening is not merely a dental check-up; it is an investment in the health, confidence, academic success and future leadership potential of every child.</p>
+      </div>
+
+      <div class="screening-lists">
+        <div class="list-card card">
+          <h4>Highlights:</h4>
+          <ul>
+            <li>Non-invasive dental caries screening</li>
+            <li>Assessment of oral hygiene and gum health</li>
+            <li>Early screening for malocclusion and other harmful oral habits</li>
+            <li>Recommendations for preventive and corrective treatment</li>
+            <li>Each student will receive individual dental report</li>
+            <li>Oral health education session</li>
+          </ul>
+        </div>
+        <div class="list-card card">
+          <h4>Oral health education session:</h4>
+          <ul>
+            <li>Brushing techniques</li>
+            <li>Importance of flossing</li>
+            <li>Importance of regular dental visits</li>
+            <li>Importance of healthy food habits</li>
+          </ul>
+        </div>
+        <div class="list-card card full-span">
+          <h4>Benefits for schools and students:</h4>
+          <ul>
+            <li>Health promotion initiative shows schools care and concern for students, which creates a positive impact on school among parents</li>
+            <li>Professional dental health program improves performance among students</li>
+            <li>Improves oral hygiene awareness among students, teachers and parents</li>
+            <li>Awareness video for parents</li>
+          </ul>
+        </div>
+      </div>
+      <div class="section-head center reveal" style="margin-top: 60px; margin-bottom: 0;">
+        <h2>Glimpses From <span class="grad-text">Our Camps</span></h2>
+      </div>
+      <div id="schoolGallery" class="school-gallery reveal" style="margin-top: 30px;"></div>
+    </div>
+  </div>
+</section>
+
 <!-- ============================= GALLERY ============================= -->
 <section class="gallery" id="gallery">
   <div class="container">
     <div class="section-head center reveal">
-      <div class="eyebrow">Before &amp; After</div>
+      <div class="eyebrow">Before & After</div>
       <h2>Real transformations, <span class="grad-text">real confidence.</span></h2>
       <p>Drag the slider to see the difference our treatments make.</p>
     </div>
+
     <div class="ba-wrap reveal-scale">
       <div class="ba-slider" id="baSlider">
-        <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
-          <defs><linearGradient id="baBefore" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dfe7ee"/><stop offset="1" stop-color="#c3d2e0"/></linearGradient></defs>
-          <rect width="800" height="450" fill="url(#baBefore)"/>
-          <ellipse cx="400" cy="240" rx="170" ry="190" fill="#f0d9bd"/>
-          <path d="M300 300 q100 60 200 0" stroke="#8a7256" stroke-width="10" fill="none" stroke-linecap="round"/>
-          <rect x="320" y="292" width="160" height="26" rx="4" fill="#d8cdb4"/>
-        </svg>
-        <div class="ba-after">
-          <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
-            <defs><linearGradient id="baAfter" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d7f3ee"/><stop offset="1" stop-color="#bfe9f5"/></linearGradient></defs>
-            <rect width="800" height="450" fill="url(#baAfter)"/>
-            <ellipse cx="400" cy="240" rx="170" ry="190" fill="#ffe3c4"/>
-            <path d="M300 300 q100 70 200 0" stroke="#0a2c5c" stroke-width="10" fill="none" stroke-linecap="round"/>
-            <rect x="316" y="290" width="168" height="30" rx="6" fill="#ffffff"/>
-          </svg>
-        </div>
+
+        <!-- Before Image -->
+        <div class="ba-before"></div>
+
+        <!-- After Image -->
+        <div class="ba-after"></div>
+
         <div class="ba-label before">Before</div>
         <div class="ba-label after">After</div>
-        <div class="ba-handle" id="baHandle"><div class="ba-knob">⇔</div></div>
+
+        <div class="ba-handle" id="baHandle">
+          <div class="ba-knob"><i class="fa-solid fa-arrows-left-right"></i></div>
+        </div>
       </div>
-      <div class="ba-dots">
-        <button class="active" data-case="1"></button>
-        <button data-case="2"></button>
-        <button data-case="3"></button>
-      </div>
+
+      <div class="ba-dots" id="baDots"></div>
     </div>
   </div>
 </section>
@@ -829,8 +1005,8 @@ html[data-theme="dark"] .fca-text{color:#fff;}
     <div class="testi-track-wrap reveal">
       <div class="testi-track" id="testiTrack"></div>
       <div class="testi-nav">
-        <button id="testiPrev" aria-label="Previous">←</button>
-        <button id="testiNext" aria-label="Next">→</button>
+        <button id="testiPrev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+        <button id="testiNext" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
       </div>
     </div>
   </div>
@@ -889,9 +1065,9 @@ html[data-theme="dark"] .fca-text{color:#fff;}
     <div class="map-info card reveal">
       <div class="eyebrow" style="margin-bottom:6px;">Visit Us</div>
       <h3>Find Sai Dental Clinic</h3>
-      <div class="map-row"><div class="ic">📍</div><p>123/1, Gayatri Complex, Near New Bus Stand (Bye Pass Road), Kodumudi – 638151</p></div>
-      <div class="map-row"><div class="ic">🕐</div><p>Monday – Saturday: 9:30 AM – 8:00 PM<br>Sunday: Only by appointment</p></div>
-      <div class="map-row"><div class="ic">💬</div><p>Call or WhatsApp: 94988 37716</p></div>
+      <div class="map-row"><div class="ic"><i class="fa-solid fa-location-dot"></i></div><p>123/1, Gayatri Complex, Near New Bus Stand (Bye Pass Road), Kodumudi – 638151</p></div>
+      <div class="map-row"><div class="ic"><i class="fa-regular fa-clock"></i></div><p>Monday – Saturday: 9:30 AM – 8:00 PM<br>Sunday: Only by appointment</p></div>
+      <div class="map-row"><div class="ic"><i class="fa-brands fa-whatsapp"></i></div><p>Call or WhatsApp: 94988 37716</p></div>
       <a href="https://www.google.com/maps/search/?api=1&query=Gayatri+Complex+Near+New+Bus+Stand+Bye+Pass+Road+Kodumudi+638151" target="_blank" class="btn btn-ghost btn-sm" style="align-self:flex-start;">Get Directions</a>
     </div>
     <div class="map-frame reveal-scale">
@@ -908,9 +1084,9 @@ html[data-theme="dark"] .fca-text{color:#fff;}
       <h2>Reserve your visit in under a minute.</h2>
       <p>Tell us a little about what you need — our care coordinator will confirm your slot within the hour, during clinic hours.</p>
       <div class="booking-perks">
-        <div><span class="tick">✓</span> Open Monday – Saturday, 9:30 AM – 8:00 PM</div>
-        <div><span class="tick">✓</span> Sunday visits available by appointment</div>
-        <div><span class="tick">✓</span> Confirmation via call or WhatsApp: 94988 37716</div>
+        <div><span class="tick"><i class="fa-solid fa-check"></i></span> Open Monday – Saturday, 9:30 AM – 8:00 PM</div>
+        <div><span class="tick"><i class="fa-solid fa-check"></i></span> Sunday visits available by appointment</div>
+        <div><span class="tick"><i class="fa-solid fa-check"></i></span> Confirmation via call or WhatsApp: 94988 37716</div>
       </div>
     </div>
     <form class="book-form reveal-scale" id="bookingForm">
@@ -936,7 +1112,7 @@ html[data-theme="dark"] .fca-text{color:#fff;}
         <p class="form-note">By booking, you agree to receive confirmation via SMS/WhatsApp. No spam, ever.</p>
       </div>
       <div class="form-success" id="formSuccess">
-        <div class="ic">✅</div>
+        <div class="ic"><i class="fa-solid fa-circle-check"></i></div>
         <h4>Appointment request received!</h4>
         <p>Our care coordinator will confirm your slot shortly. Check your phone for a confirmation message.</p>
       </div>
@@ -949,7 +1125,7 @@ html[data-theme="dark"] .fca-text{color:#fff;}
   <div class="container">
     <div class="emg-card reveal-scale">
       <div class="emg-left">
-        <div class="emg-ic">🚨</div>
+        <div class="emg-ic"><i class="fa-solid fa-truck-medical"></i></div>
         <div><h3>Dental Emergency?</h3><p>Severe pain, swelling, or a knocked-out tooth? Call or WhatsApp us directly and we'll guide you on the next steps.</p></div>
       </div>
       <div class="emg-actions">
@@ -971,7 +1147,10 @@ html[data-theme="dark"] .fca-text{color:#fff;}
         </div>
         <p class="footer-desc">A premium dental practice in the heart of Chennai — combining specialist expertise, hospital-grade hygiene, and genuine comfort.</p>
         <div class="footer-social">
-          <span>📘</span><span>📸</span><span>🐦</span><span>▶️</span>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
         </div>
       </div>
       <div class="footer-col">
@@ -997,15 +1176,15 @@ html[data-theme="dark"] .fca-text{color:#fff;}
       <div class="footer-col">
         <h5>Contact</h5>
         <ul>
-          <li>📍 123/1, Gayatri Complex, Near New Bus Stand (Bye Pass Road), Kodumudi – 638151</li>
-          <li>📞 Call/WhatsApp: 94988 37716</li>
-          <li>🕐 Mon–Sat: 9:30 AM – 8:00 PM</li>
-          <li>🕐 Sunday: Only by appointment</li>
+          <li><i class="fa-solid fa-location-dot" style="width: 1.25rem; text-align: center; margin-right: 0.5rem; color: var(--primary);"></i>123/1, Gayatri Complex, Near New Bus Stand (Bye Pass Road), Kodumudi – 638151</li>
+          <li><i class="fa-solid fa-phone" style="width: 1.25rem; text-align: center; margin-right: 0.5rem; color: var(--primary);"></i>Call/WhatsApp: 94988 37716</li>
+          <li><i class="fa-regular fa-clock" style="width: 1.25rem; text-align: center; margin-right: 0.5rem; color: var(--primary);"></i>Mon–Sat: 9:30 AM – 8:00 PM</li>
+          <li><i class="fa-regular fa-clock" style="width: 1.25rem; text-align: center; margin-right: 0.5rem; color: var(--primary);"></i>Sunday: Only by appointment</li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Sai Dental Clinic. All rights reserved.</span>
+      <span>© <span id="copyrightYear">2026</span> Sai Dental Clinic. All rights reserved.</span>
       <span><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></span>
     </div>
   </div>
@@ -1013,9 +1192,9 @@ html[data-theme="dark"] .fca-text{color:#fff;}
 
 <!-- ============================= FLOATING WIDGETS ============================= -->
 <div class="floating-widgets">
-  <button class="fw-top" id="fwTop" aria-label="Back to top">↑</button>
-  <a href="tel:+919498837716" class="fw-btn fw-call" aria-label="Call us">📞</a>
-  <a href="https://wa.me/919498837716" target="_blank" class="fw-btn fw-wa" aria-label="Chat on WhatsApp"><span class="fw-ping"></span><span style="position:relative;">💬</span></a>
+  <button class="fw-top" id="fwTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+  <a href="tel:+919498837716" class="fw-btn fw-call" aria-label="Call us"><i class="fa-solid fa-phone"></i></a>
+  <a href="https://wa.me/919498837716" target="_blank" class="fw-btn fw-wa" aria-label="Chat on WhatsApp"><span class="fw-ping"></span><span style="position:relative;"><i class="fa-brands fa-whatsapp"></i></span></a>
 </div>
 
 <div class="floating-cta" id="floatingCta">
@@ -1031,36 +1210,36 @@ html[data-theme="dark"] .fca-text{color:#fff;}
 <script>
 /* ============================= DATA ============================= */
 const doctors = [
-  {name:"Dr. Rithani", role:"Chief Dental Surgeon & Founder", desc:"Founder of Sai Dental Clinic (2022). Fellowship in clinical endodontics & oral surgery, with nearly a decade of experience.", tags:["BDS","Founder"], hue:["#0a2c5c","#1e9be9"]},
-  {name:"Dr. Navin", role:"Orthodontics", desc:"Consultant orthodontist specialising in braces, aligners, and retainers.", tags:["BDS","MDS Ortho"], hue:["#123a72","#35d8f0"]},
-  {name:"Dr. Ashok", role:"Oral Surgery", desc:"Consultant for extractions, wisdom tooth surgery, and facial trauma care.", tags:["BDS","MDS Oral Surgery"], hue:["#1e9be9","#2fd6b0"]},
-  {name:"Dr. Gayatridevi", role:"Prosthodontics", desc:"Consultant for implants, crowns, bridges, and denture rehabilitation.", tags:["BDS","MDS Prostho"], hue:["#0a2c5c","#2fd6b0"]},
-  {name:"Dr. Sundar Rajan", role:"Periodontics", desc:"Consultant for gum surgeries, grafting, and periodontal therapy.", tags:["BDS","MDS Perio"], hue:["#35d8f0","#0a2c5c"]},
-  {name:"Dr. Mithun", role:"Pedodontics", desc:"Consultant paediatric dentist for gentle, child-friendly care.", tags:["BDS","MDS Pedo"], hue:["#2fd6b0","#123a72"]}
+  {name:"Dr. Rithani", role:"Chief Dental Surgeon & Founder", desc:"Founder of Sai Dental Clinic (2022). Fellowship in clinical endodontics & oral surgery, with nearly a decade of experience.", tags:["BDS","Founder"], img:"images/our-dentists/dr-img1.png"},
+  {name:"Dr. Navin", role:"Orthodontics", desc:"Consultant orthodontist specialising in braces, aligners, and retainers.", tags:["BDS","MDS Ortho"], img:"images/our-dentists/dr-img2.png"},
+  {name:"Dr. Ashok", role:"Oral Surgery", desc:"Consultant for extractions, wisdom tooth surgery, and facial trauma care.", tags:["BDS","MDS Oral Surgery"], img:"images/our-dentists/dr-img3.png"},
+  {name:"Dr. Gayatridevi", role:"Prosthodontics", desc:"Consultant for implants, crowns, bridges, and denture rehabilitation.", tags:["BDS","MDS Prostho"], img:"images/our-dentists/dr-img4.png"},
+  {name:"Dr. Sundar Rajan", role:"Periodontics", desc:"Consultant for gum surgeries, grafting, and periodontal therapy.", tags:["BDS","MDS Perio"], img:"images/our-dentists/dr-img5.png"},
+  {name:"Dr. Mithun", role:"Pedodontics", desc:"Consultant paediatric dentist for gentle, child-friendly care.", tags:["BDS","MDS Pedo"], img:"images/our-dentists/dr-img6.png"}
 ];
 
 const services = [
-  {ic:"🦷", title:"General Dentistry", items:["Consultation","Oral prophylaxis","Restorations"]},
-  {ic:"🧸", title:"Paediatric Dentistry", items:["Pulpectomy","Oral rehabilitation with crowns","Habit-breaking appliances"]},
-  {ic:"📐", title:"Orthodontics", items:["Preventive orthodontics","Interceptive orthodontics","Corrective orthodontics (braces, aligners, retainers)"]},
-  {ic:"🩹", title:"Oral Surgery", items:["Tooth extractions","Surgical extraction of wisdom tooth","Management of maxillary & mandibular fractures"]},
-  {ic:"🌿", title:"Periodontal Procedures", items:["Flap surgeries","Gingivectomy","Frenectomy & gingival grafting"]},
-  {ic:"🔩", title:"Prosthodontics", items:["Implants","Dentures (implant & tooth supported)","Fixed partial dentures (FPD)"]},
-  {ic:"✨", title:"Cosmetic Dentistry", items:["Teeth whitening","Veneers","Smile designing"]},
-  {ic:"🩺", title:"Endodontics", items:["Root canal treatments","Post and core","Apexification & apexogenesis"]}
+  {ic:"<i class='fa-solid fa-tooth'></i>", title:"General Dentistry", items:["Consultation","Oral prophylaxis","Restorations"]},
+  {ic:"<i class='fa-solid fa-child'></i>", title:"Paediatric Dentistry", items:["Pulpectomy","Oral rehabilitation with crowns","Habit-breaking appliances"]},
+  {ic:"<i class='fa-solid fa-ruler-combined'></i>", title:"Orthodontics", items:["Preventive orthodontics","Interceptive orthodontics","Corrective orthodontics (braces, aligners, retainers)"]},
+  {ic:"<i class='fa-solid fa-bandage'></i>", title:"Oral Surgery", items:["Tooth extractions","Surgical extraction of wisdom tooth","Management of maxillary & mandibular fractures"]},
+  {ic:"<i class='fa-solid fa-leaf'></i>", title:"Periodontal Procedures", items:["Flap surgeries","Gingivectomy","Frenectomy & gingival grafting"]},
+  {ic:"<i class='fa-solid fa-screwdriver-wrench'></i>", title:"Prosthodontics", items:["Implants","Dentures (implant & tooth supported)","Fixed partial dentures (FPD)"]},
+  {ic:"<i class='fa-solid fa-wand-magic-sparkles'></i>", title:"Cosmetic Dentistry", items:["Teeth whitening","Veneers","Smile designing"]},
+  {ic:"<i class='fa-solid fa-stethoscope'></i>", title:"Endodontics", items:["Root canal treatments","Post and core","Apexification & apexogenesis"]}
 ];
 
 const whyCards = [
-  {ic:"🏥", title:"Hospital-Grade Hygiene", desc:"Autoclave sterilisation and single-use disposables at every step."},
-  {ic:"👨‍⚕️", title:"Specialist-Led Care", desc:"Every treatment plan is reviewed by a fellowship-trained specialist."},
-  {ic:"🤖", title:"Advanced Technology", desc:"Digital X-rays, intraoral scanners, and laser dentistry on-site."},
-  {ic:"💬", title:"Transparent Pricing", desc:"Upfront cost estimates before any treatment begins — no surprises."}
+  {ic:"<i class='fa-solid fa-hospital'></i>", title:"Hospital-Grade Hygiene", desc:"Autoclave sterilisation and single-use disposables at every step."},
+  {ic:"<i class='fa-solid fa-user-doctor'></i>", title:"Specialist-Led Care", desc:"Every treatment plan is reviewed by a trained specialist."},
+  {ic:"<i class='fa-solid fa-microscope'></i>", title:"Advanced Technology", desc:"Digital X-rays, intraoral scanners, and laser dentistry on-site."},
+  {ic:"<i class='fa-solid fa-comments'></i>", title:"Transparent Pricing", desc:"Upfront cost estimates before any treatment begins — no surprises."}
 ];
 
 const techItems = [
-  {title:"Digital X-Ray", desc:"Low-radiation digital imaging for fast, accurate diagnosis.", grad:["#0a2c5c","#1e9be9"]},
-  {title:"Intraoral Camera", desc:"See exactly what your dentist sees, right on screen, before any treatment decision.", grad:["#123a72","#35d8f0"]},
-  {title:"Intraoral Scanner", desc:"Impression-free digital scans for precise crowns, aligners, and implants.", grad:["#1e9be9","#2fd6b0"]}
+  {title:"Digital X-Ray", desc:"Low-radiation digital imaging for fast, accurate diagnosis.", img: "images/technology/Digital X-Ray.png"},
+  {title:"Intraoral Camera", desc:"See exactly what your dentist sees, right on screen, before any treatment decision.", img: "images/technology/Intraoral Camera.png"},
+  {title:"Intraoral Scanner", desc:"Impression-free digital scans for precise crowns, aligners, and implants.", img: "images/technology/Intraoral Scanner.png"}
 ];
 
 const processSteps = [
@@ -1072,20 +1251,20 @@ const processSteps = [
 ];
 
 const insurance = [
-  {ic:"🧾", title:"Upfront Cost Estimates", desc:"A clear cost estimate discussed with you before any treatment begins."},
-  {ic:"💳", title:"Multiple Payment Modes", desc:"Cash, card, and UPI accepted at the clinic for your convenience."},
-  {ic:"🗓️", title:"Flexible Scheduling", desc:"Appointment-based visits, with Sunday slots available on request."},
-  {ic:"📞", title:"Ask Us Anything", desc:"Have a question about costs or insurance eligibility? Call or WhatsApp: 94988 37716."}
+  {ic:"<i class='fa-solid fa-file-invoice-dollar'></i>", title:"Upfront Cost Estimates", desc:"A clear cost estimate discussed with you before any treatment begins."},
+  {ic:"<i class='fa-solid fa-credit-card'></i>", title:"Multiple Payment Modes", desc:"Cash, card, and UPI accepted at the clinic for your convenience."},
+  {ic:"<i class='fa-solid fa-calendar-days'></i>", title:"Flexible Scheduling", desc:"Appointment-based visits, with Sunday slots available on request."},
+  {ic:"<i class='fa-solid fa-phone'></i>", title:"Ask Us Anything", desc:"Have a question about costs or insurance eligibility? Call or WhatsApp: 94988 37716."}
 ];
 
 const camps = [
-  {ic:"🏫", title:"Sri Anoor Vidyalaya MHSS, Muthur", desc:"School dental screening & awareness camp, held annually (2022–2025)."},
-  {ic:"🤝", title:"NSS Public Camp, Kottaikattu Valasu", desc:"Public dental screening and oral health awareness camp."},
-  {ic:"🤝", title:"NSS Public Camp, Panapalayam", desc:"Community dental screening and awareness camp."},
-  {ic:"🏫", title:"Thamarai MHSS, Thamaraipalayam", desc:"Awareness camp for school children on oral hygiene."},
-  {ic:"🏫", title:"Sri Ragavendra Vidyalaya Nursery, Pallakattur", desc:"School dental screening and awareness camp in Kodumudi."},
-  {ic:"🏫", title:"Venus Global Campus, Punnamchathiram", desc:"School dental screening and awareness camp."},
-  {ic:"🚌", title:"Karka Kasadara Kids School, Kodumudi", desc:"Dental field trip hosted at the clinic for kindergarten children."}
+  {ic:"<i class='fa-solid fa-school'></i>", title:"Sri Anoor Vidyalaya MHSS, Muthur", desc:"School dental screening & awareness camp, held annually (2022–2025)."},
+  {ic:"<i class='fa-solid fa-handshake-angle'></i>", title:"NSS Public Camp, Kottaikattu Valasu", desc:"Public dental screening and oral health awareness camp."},
+  {ic:"<i class='fa-solid fa-handshake-angle'></i>", title:"NSS Public Camp, Panapalayam", desc:"Community dental screening and awareness camp."},
+  {ic:"<i class='fa-solid fa-school'></i>", title:"Thamarai MHSS, Thamaraipalayam", desc:"Awareness camp for school children on oral hygiene."},
+  {ic:"<i class='fa-solid fa-school'></i>", title:"Sri Ragavendra Vidyalaya Nursery, Pallakattur", desc:"School dental screening and awareness camp in Kodumudi."},
+  {ic:"<i class='fa-solid fa-school'></i>", title:"Venus Global Campus, Punnamchathiram", desc:"School dental screening and awareness camp."},
+  {ic:"<i class='fa-solid fa-bus'></i>", title:"Karka Kasadara Kids School, Kodumudi", desc:"Dental field trip hosted at the clinic for kindergarten children."}
 ];
 
 const faqs = [
@@ -1098,10 +1277,35 @@ const faqs = [
 ];
 
 const testimonials = [
-  {text:"The implant procedure was completely painless and the clinic felt more like a five-star hospital than a dental office. I've recommended Sai Dental to my entire family.", name:"Ramesh Iyer", role:"Implant Patient", stars:5},
-  {text:"My daughter used to be terrified of the dentist. Dr. Priya changed that completely — she now looks forward to her check-ups.", name:"Divya Krishnan", role:"Parent of Pediatric Patient", stars:5},
-  {text:"Invisible aligners gave me the confidence to smile in every photo again. The whole journey was tracked digitally and explained clearly at each step.", name:"Arjun Menon", role:"Aligner Patient", stars:5},
-  {text:"Transparent pricing, zero waiting time, and genuinely caring doctors. This is what dental care should feel like everywhere.", name:"Fathima Rahman", role:"Cosmetic Dentistry Patient", stars:5}
+  {text:"The implant procedure was completely painless and the clinic felt more like a five-star hospital than a dental office. I've recommended Sai Dental to my entire family.", name:"Ramesh Iyer", role:"Implant Patient", stars:5, img:"images/testimonial/testimonial-img1.png"},
+  {text:"My daughter used to be terrified of the dentist. Dr. Priya changed that completely — she now looks forward to her check-ups.", name:"Divya Krishnan", role:"Parent of Pediatric Patient", stars:5, img:"images/testimonial/testimonial-img2.png"},
+  {text:"Invisible aligners gave me the confidence to smile in every photo again. The whole journey was tracked digitally and explained clearly at each step.", name:"Arjun Menon", role:"Aligner Patient", stars:5, img:"images/testimonial/testimonial-img3.png"},
+  {text:"Transparent pricing, zero waiting time, and genuinely caring doctors. This is what dental care should feel like everywhere.", name:"Fathima Rahman", role:"Cosmetic Dentistry Patient", stars:5, img:"images/testimonial/testimonial-img4.png"}
+];
+
+const schoolGalleryImages = [
+  "images/screening-program/school-img10.png",
+  "images/screening-program/school-img2.png",
+  "images/screening-program/school-img3.png",
+  "images/screening-program/school-img4.png",
+  "images/screening-program/school-img5.png",
+  "images/screening-program/school-img6.png",
+  "images/screening-program/school-img7.png",
+  "images/screening-program/school-img8.png",
+  "images/screening-program/school-img9.png",
+  "images/screening-program/school-img1.png",
+  "images/community/community-img1.png",
+  "images/community/community-img2.png",
+  "images/community/community-img3.png",
+  "images/community/community-img4.png",
+  "images/community/community-img5.png",
+  "images/community/community-img7.png",
+  "images/community/community-img8.png",
+  "images/community/community-img9.png",
+  "images/community/community-img10.png",
+  "images/community/community-img11.png",
+  "images/community/community-img12.png",
+  "images/community/community-img13.png"
 ];
 
 /* ============================= HELPERS ============================= */
@@ -1140,7 +1344,7 @@ function techSVG(colorA, colorB, seed){
 document.getElementById('docGrid').innerHTML = doctors.map((d,i)=>`
   <div class="doc-card card reveal" style="--i:${i}">
     <div class="doc-photo">
-      ${faceSVG(d.hue[0], d.hue[1], 'doc'+i)}
+      <img src="${d.img}" alt="${d.name}" style="width:100%; height:100%; object-fit:cover; display:block;">
       <div class="doc-social"><span class="glass">in</span><span class="glass">✉</span></div>
     </div>
     <div class="doc-body">
@@ -1167,7 +1371,7 @@ document.getElementById('whyGrid').innerHTML = whyCards.map((w,i)=>`
 
 document.getElementById('techGrid').innerHTML = techItems.map((t,i)=>`
   <div class="tech-card card reveal" style="--i:${i}">
-    <div class="tech-visual">${techSVG(t.grad[0], t.grad[1], 'tech'+i)}</div>
+    <div class="tech-visual"><img src="${t.img}" alt="${t.title}" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
     <div class="tech-body"><h4>${t.title}</h4><p>${t.desc}</p></div>
   </div>`).join('');
 
@@ -1203,11 +1407,72 @@ document.getElementById('testiTrack').innerHTML = testimonials.map(t=>`
       <div class="testi-stars">${'★'.repeat(t.stars)}</div>
       <p class="testi-text">${t.text}</p>
       <div class="testi-person">
-        <div class="testi-avatar" style="background:linear-gradient(135deg,#1e9be9,#35d8f0); border-radius:50%;"></div>
+        <div class="testi-avatar" style="background-image:url('${t.img}'); background-size:cover; background-position:center; border-radius:50%;"></div>
         <div style="text-align:left;"><div class="testi-name">${t.name}</div><div class="testi-role">${t.role}</div></div>
       </div>
     </div>
   </div>`).join('');
+
+const schoolGalDiv = document.getElementById('schoolGallery');
+let currentSchoolSlide = 0;
+let schoolAutoInterval;
+
+function updateSchoolCarousel() {
+  const items = document.querySelectorAll('.school-gallery .carousel-3d-item');
+  if(!items.length) return;
+  const len = items.length;
+  const shiftBase = window.innerWidth < 760 ? 60 : 130;
+  
+  items.forEach((item, index) => {
+    let rawOffset = index - (currentSchoolSlide % len);
+    let offset = ((rawOffset % len) + len + Math.floor(len/2)) % len - Math.floor(len/2);
+    let absOffset = Math.abs(offset);
+    let sign = Math.sign(offset);
+    
+    let scale = Math.max(0, 1 - (0.15 * absOffset));
+    let translateX = sign * (shiftBase * absOffset);
+    let zIndex = 20 - absOffset;
+    let opacity = absOffset > 3 ? 0 : 1; 
+    
+    if (offset === 0) item.classList.add('active');
+    else item.classList.remove('active');
+    
+    item.style.transform = `translateX(${translateX}px) scale(${scale})`;
+    item.style.zIndex = zIndex;
+    item.style.opacity = opacity;
+  });
+}
+
+function startSchoolAuto(){
+  clearInterval(schoolAutoInterval);
+  schoolAutoInterval = setInterval(()=> {
+    currentSchoolSlide++;
+    updateSchoolCarousel();
+  }, 3000);
+}
+
+if(schoolGalDiv && schoolGalleryImages.length){
+  schoolGalDiv.innerHTML = schoolGalleryImages.map((img,i)=>`
+    <div class="carousel-3d-item" onclick="currentSchoolSlide += (${i} - (currentSchoolSlide % ${schoolGalleryImages.length})); updateSchoolCarousel(); startSchoolAuto();">
+      <img src="${img}" alt="School Screening ${i+1}" loading="lazy">
+    </div>`).join('');
+  
+  window.addEventListener('resize', updateSchoolCarousel);
+  
+  const carouselIo = new IntersectionObserver((entries, obs) => {
+    if(entries[0].isIntersecting) {
+      setTimeout(() => {
+        updateSchoolCarousel();
+        startSchoolAuto();
+      }, 100);
+      obs.disconnect();
+    }
+  }, {threshold: 0.3});
+  carouselIo.observe(schoolGalDiv);
+  
+  schoolGalDiv.addEventListener('mouseenter', ()=>clearInterval(schoolAutoInterval));
+  schoolGalDiv.addEventListener('mouseleave', startSchoolAuto);
+}
 
 /* ============================= NAV SCROLL ============================= */
 const nav = document.getElementById('nav');
@@ -1285,7 +1550,43 @@ document.querySelector('.testi-track-wrap').addEventListener('mouseenter', ()=>c
 /* ============================= BEFORE/AFTER SLIDER ============================= */
 const baSlider = document.getElementById('baSlider');
 const baHandle = document.getElementById('baHandle');
+const baBefore = document.querySelector('.ba-before');
 const baAfter = document.querySelector('.ba-after');
+const baDotsContainer = document.getElementById('baDots');
+
+// Update this array with your actual before/after image paths
+const baSlides = [
+  { before: 'images/before-and-after/befor-after-img11.png', after: 'images/before-and-after/befor-after-img1.png' },
+  { before: 'images/before-and-after/befor-after-img21.png', after: 'images/before-and-after/befor-after-img2.png' },
+  { before: 'images/before-and-after/befor-after-img31.png', after: 'images/before-and-after/befor-after-img3.png' },
+  { before: 'images/before-and-after/befor-after-img41.png', after: 'images/before-and-after/befor-after-img4.png' },
+  { before: 'images/before-and-after/befor-after-img61.png', after: 'images/before-and-after/befor-after-img6.png' },
+  { before: 'images/before-and-after/befor-after-img71.png', after: 'images/before-and-after/befor-after-img7.png' },
+  { before: 'images/before-and-after/befor-after-img81.png', after: 'images/before-and-after/befor-after-img8.png' }
+];
+
+let currentBaIndex = 0;
+
+function renderBaSlide(index) {
+  currentBaIndex = index;
+  const slide = baSlides[index];
+  baBefore.style.backgroundImage = `url('${slide.before}')`;
+  baAfter.style.backgroundImage = `url('${slide.after}')`;
+  
+  if (baDotsContainer) {
+    baDotsContainer.innerHTML = '';
+    baSlides.forEach((s, i) => {
+      const btn = document.createElement('button');
+      if (i === index) btn.classList.add('active');
+      btn.addEventListener('click', () => {
+        renderBaSlide(i);
+        setBa(50);
+      });
+      baDotsContainer.appendChild(btn);
+    });
+  }
+}
+
 function setBa(pct){
   pct = Math.max(4, Math.min(96, pct));
   baAfter.style.clipPath = `inset(0 ${100-pct}% 0 0)`;
@@ -1303,7 +1604,11 @@ window.addEventListener('mouseup', ()=>baDragging=false);
 baSlider.addEventListener('touchstart', (e)=>{ baDragging = true; setBa(baFromEvent(e)); });
 baSlider.addEventListener('touchmove', (e)=>{ if(baDragging) setBa(baFromEvent(e)); });
 window.addEventListener('touchend', ()=>baDragging=false);
+
+// Initialize Slider
+renderBaSlide(0);
 setBa(50);
+
 
 /* ============================= THEME TOGGLE ============================= */
 const themeToggle = document.getElementById('themeToggle');
@@ -1311,7 +1616,7 @@ themeToggle.addEventListener('click', ()=>{
   const html = document.documentElement;
   const isDark = html.getAttribute('data-theme') === 'dark';
   html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-  themeToggle.textContent = isDark ? '🌙' : '☀️';
+  themeToggle.innerHTML = isDark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
 });
 
 /* ============================= BOOKING FORM ============================= */
@@ -1330,6 +1635,9 @@ document.getElementById('hamburger').addEventListener('click', ()=>{
     background:rgba(255,255,255,.97); border-radius:20px; padding:12px; box-shadow:0 20px 40px rgba(10,44,92,.18); gap:2px;
   `;
 });
+
+/* ============================= DYNAMIC COPYRIGHT ============================= */
+document.getElementById('copyrightYear').textContent = new Date().getFullYear();
 
 </script>
 </body>
