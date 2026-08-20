@@ -339,10 +339,14 @@ html[data-theme="dark"] .doc-tags span{color:#fff;}
 /* ============================= CAMPS ============================= */
 .camps{padding:120px 0; background:var(--bg-soft);}
 .camps-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
-.camp-card{padding:26px 24px; display:flex; gap:16px; align-items:flex-start;}
+.camp-card{padding:0; overflow:hidden;}
+.camp-img-wrap{overflow:hidden; width:100%; border-bottom:1px solid rgba(0,0,0,.04);}
+.camp-img{width:100%; height:200px; object-fit:cover; display:block; transition:transform .5s var(--ease);}
+.camp-card:hover .camp-img{transform:scale(1.05);}
+.camp-body{padding:24px; display:flex; gap:16px; align-items:flex-start; background:#fff; position:relative; z-index:2;}
 .camp-ic{width:46px; height:46px; border-radius:14px; background:var(--grad-soft); color:var(--azure); display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex:none;}
-.camp-card h4{font-size:.96rem; margin-bottom:4px;}
-.camp-card p{font-size:.82rem; color:var(--ink-soft); line-height:1.55;}
+.camp-body h4{font-size:.96rem; margin-bottom:4px;}
+.camp-body p{font-size:.82rem; color:var(--ink-soft); line-height:1.55;}
 
 /* ============================= GALLERY ============================= */
 .gallery{
@@ -350,19 +354,28 @@ html[data-theme="dark"] .doc-tags span{color:#fff;}
   background:var(--bg);
 }
 
-.ba-wrap{
-  max-width:900px;
+.ba-carousel-wrap{
+  max-width:1240px;
   margin:0 auto;
+  overflow:hidden;
+  padding:20px 0;
+}
+
+.ba-track{
+  display:flex;
+  gap:24px;
+  transition:transform 0.6s var(--ease);
 }
 
 .ba-slider{
   position:relative;
-  width:100%;
-  aspect-ratio:16/9;
+  flex: 0 0 calc((100% - 48px) / 3);
+  aspect-ratio:1/1;
   border-radius:28px;
   overflow:hidden;
-  box-shadow:0 20px 50px rgba(0,0,0,.15);
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
   cursor:ew-resize;
+  user-select:none;
 }
 
 /* BEFORE IMAGE */
@@ -440,8 +453,21 @@ html[data-theme="dark"] .doc-tags span{color:#fff;}
   display:flex;
   justify-content:center;
   align-items:center;
-  gap:8px;
-  margin-top:24px;
+  gap:12px;
+  margin-top:40px;
+}
+.ba-dots button{
+  width:10px; height:10px; border-radius:50%; background:rgba(0,0,0,.15); transition:all .3s var(--ease); cursor:pointer;
+}
+.ba-dots button.active{
+  background:var(--azure);
+  transform:scale(1.4);
+}
+@media(max-width:1000px){
+  .ba-slider{ flex: 0 0 calc((100% - 24px) / 2); }
+}
+@media(max-width:600px){
+  .ba-slider{ flex: 0 0 100%; }
 }
 
 .ba-dots button{
@@ -694,11 +720,17 @@ html[data-theme="dark"] .fca-text{color:#fff;}
 
 /* ============================= SCREENING ============================= */
 .screening{padding:80px 0; background:var(--bg-soft);}
-.screening-content{max-width:960px; margin:40px auto 0; line-height:1.7;}
-.screening-intro{text-align:center; margin-bottom:30px; font-size:1.1rem; color:var(--navy);}
-.screening-intro strong{color:var(--azure);}
-.screening-content h3{color:var(--navy); margin:30px 0 15px; font-size:1.4rem;}
-.screening-content p{margin-bottom:20px; color:var(--text);}
+.screening-content{max-width:1140px; margin:40px auto 0; line-height:1.7;}
+.screening-intro{text-align:center; margin-bottom:40px;}
+.scr-badge{display:inline-block; padding:10px 24px; background:#fff; border-radius:999px; font-weight:600; font-size:.85rem; color:var(--azure); box-shadow:0 10px 30px rgba(0,0,0,.06); margin-bottom:20px;}
+.scr-header{text-align:center; max-width:800px; margin:0 auto 50px;}
+.scr-header h3{font-size:2.2rem; color:var(--navy); line-height:1.2; font-weight:800; letter-spacing:-.8px; margin-bottom:16px;}
+.scr-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+.scr-card{background:#fff; padding:32px 24px; border-radius:var(--radius-lg); box-shadow:0 10px 40px rgba(0,0,0,.04); border:1px solid var(--line); transition:transform .4s var(--ease);}
+.scr-card:hover{transform:translateY(-8px); box-shadow:0 20px 40px rgba(0,0,0,.08);}
+.scr-ic{width:56px; height:56px; border-radius:16px; background:var(--grad-brand); color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.4rem; margin-bottom:24px;}
+.scr-card h4{font-size:1.15rem; color:var(--navy); margin-bottom:12px; line-height:1.4; font-weight:700;}
+.scr-card p{font-size:.9rem; color:var(--ink-soft); line-height:1.6; margin-bottom:0;}
 .screening-lists{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:40px;}
 .list-card{padding:30px; text-align:left;}
 .list-card.full-span{grid-column:1 / -1;}
@@ -712,6 +744,8 @@ html[data-theme="dark"] .fca-text{color:#fff;}
   .hamburger{display:flex; width:42px; height:42px; align-items:center; justify-content:center; border-radius:50%; background:var(--bg-soft); border:1px solid var(--line);}
   .call-chip{width:42px; height:42px; padding:0; justify-content:center;}
   .hero-grid, .about-grid, .booking-grid, .map-grid{grid-template-columns:1fr;}
+  .screening-content{max-width:100%;}
+  .scr-grid{grid-template-columns:1fr; gap:20px;}
   .doc-grid{grid-template-columns:repeat(2,1fr);}
   .services-grid{grid-template-columns:repeat(2,1fr);}
   .why-grid, .counters{grid-template-columns:repeat(2,1fr);}
@@ -751,7 +785,9 @@ html[data-theme="dark"] .fca-text{color:#fff;}
   .brand-text span{font-size:.56rem;}
   .doc-grid, .services-grid, .why-grid, .counters, .tech-grid, .camps-grid, .process-track{grid-template-columns:1fr;}
   .ba-slider{aspect-ratio:1/1;}
-  .ba-label{display:none;}
+  .ba-label{padding:4px 10px; font-size:.62rem; top:12px;}
+  .ba-label.before{left:12px;}
+  .ba-label.after{right:12px;}
 }
 
 @media (prefers-reduced-motion: reduce){
@@ -914,15 +950,28 @@ html[data-theme="dark"] .fca-text{color:#fff;}
     </div>
     
     <div class="screening-content reveal">
-      <div class="screening-intro">
-        <p><strong>Dr. Rithani K.R BDS., FCE.,</strong><br>Dental Surgeon<br>Sai Dental Clinic<br>Kodumudi</p>
-      </div>
-
-      <div class="content-block">
+    <div class="screening-content reveal">
+      <div class="scr-header">
+        <div class="scr-badge">Dr. Rithani K.R BDS., FCE. | Dental Surgeon | Kodumudi</div>
         <h3>Why dental screening is important for school going children?</h3>
-        <p>School play's vital role in shaping a person's life in various ways. It is not only a place for academic learning but also a foundation for developing values, discipline, communication skills, teamwork and leadership qualities. Schools help children build confidence for future challenges and prepare them becoming a responsible member of society.</p>
-        <p>On the other hand, poor dental health can negatively affect a child's school in many ways. Tooth pain and infections can make it difficult to eat, sleep and concentrate in class, leading to poor academic performance and absenteeism. Dental problems such as bad breath, decayed teeth or irregular teeth may reduce self-confidence, making children hesitant to participate in discussions, cultural activities or leadership roles. As a result, poor oral health can impact a child's learning, social interactions, overall well-being and personal development. Moreover, children who develop oral hygiene practice at early age have lesser probability to develop dental problems throughout their life.</p>
-        <p>Healthy students learn better, participate better, and lead better. School dental screening helps identify and address dental problems earlier, which is essential for child's overall well-being. School dental screening is not merely a dental check-up; it is an investment in the health, confidence, academic success and future leadership potential of every child.</p>
+      </div>
+      
+      <div class="scr-grid">
+        <div class="scr-card">
+          <div class="scr-ic"><i class="fa-solid fa-graduation-cap"></i></div>
+          <h4>Foundation for Growth</h4>
+          <p>School is not only for academic learning but also a foundation for developing discipline, communication, and teamwork. Schools prepare children to become confident members of society.</p>
+        </div>
+        <div class="scr-card">
+          <div class="scr-ic"><i class="fa-solid fa-tooth"></i></div>
+          <h4>Impact of Poor Health</h4>
+          <p>Tooth pain makes it difficult to concentrate. Bad breath and decayed teeth reduce self-confidence, making children hesitant to participate in discussions and leading to absenteeism.</p>
+        </div>
+        <div class="scr-card">
+          <div class="scr-ic"><i class="fa-solid fa-shield-halved"></i></div>
+          <h4>Investment in the Future</h4>
+          <p>Healthy students learn and participate better. Early dental screening identifies problems fast, acting as a crucial investment in a child's health, academic success, and overall well-being.</p>
+        </div>
       </div>
 
       <div class="screening-lists">
@@ -973,23 +1022,10 @@ html[data-theme="dark"] .fca-text{color:#fff;}
       <p>Drag the slider to see the difference our treatments make.</p>
     </div>
 
-    <div class="ba-wrap reveal-scale">
-      <div class="ba-slider" id="baSlider">
-
-        <!-- Before Image -->
-        <div class="ba-before"></div>
-
-        <!-- After Image -->
-        <div class="ba-after"></div>
-
-        <div class="ba-label before">Before</div>
-        <div class="ba-label after">After</div>
-
-        <div class="ba-handle" id="baHandle">
-          <div class="ba-knob"><i class="fa-solid fa-arrows-left-right"></i></div>
-        </div>
+    <div class="ba-carousel-wrap reveal-scale">
+      <div class="ba-track" id="baTrack">
+        <!-- Rendered dynamically by Javascript -->
       </div>
-
       <div class="ba-dots" id="baDots"></div>
     </div>
   </div>
@@ -1210,11 +1246,8 @@ html[data-theme="dark"] .fca-text{color:#fff;}
 /* ============================= DATA ============================= */
 const doctors = [
   {name:"Dr. Rithani", role:"Chief Dental Surgeon & Founder", desc:"Founder of Sai Dental Clinic (2022). Fellowship in clinical endodontics & oral surgery, with nearly a decade of experience.", tags:["BDS","Founder"], img:"images/our-dentists/dr-img1.png"},
-  {name:"Dr. Navin", role:"Orthodontics", desc:"Consultant orthodontist specialising in braces, aligners, and retainers.", tags:["BDS","MDS Ortho"], img:"images/our-dentists/dr-img2.png"},
-  {name:"Dr. Ashok", role:"Oral Surgery", desc:"Consultant for extractions, wisdom tooth surgery, and facial trauma care.", tags:["BDS","MDS Oral Surgery"], img:"images/our-dentists/dr-img3.png"},
-  {name:"Dr. Gayatridevi", role:"Prosthodontics", desc:"Consultant for implants, crowns, bridges, and denture rehabilitation.", tags:["BDS","MDS Prostho"], img:"images/our-dentists/dr-img4.png"},
-  {name:"Dr. Sundar Rajan", role:"Periodontics", desc:"Consultant for gum surgeries, grafting, and periodontal therapy.", tags:["BDS","MDS Perio"], img:"images/our-dentists/dr-img5.png"},
-  {name:"Dr. Mithun", role:"Pedodontics", desc:"Consultant paediatric dentist for gentle, child-friendly care.", tags:["BDS","MDS Pedo"], img:"images/our-dentists/dr-img6.png"}
+  {name:"Dr. xyy", role:"Orthodontics", desc:"Consultant orthodontist specialising in braces, aligners, and retainers.", tags:["BDS","MDS Ortho"], img:"data:image/svg+xml;utf8," + encodeURIComponent(faceSVG("#0a2c5c", "#35d8f0", 2))},
+  {name:"Dr. xyyy", role:"Oral Surgery", desc:"Consultant for extractions, wisdom tooth surgery, and facial trauma care.", tags:["BDS","MDS Oral Surgery"], img:"data:image/svg+xml;utf8," + encodeURIComponent(faceSVG("#14705a", "#2fd6b0", 3))}
 ];
 
 const services = [
@@ -1257,13 +1290,13 @@ const insurance = [
 ];
 
 const camps = [
-  {ic:"<i class='fa-solid fa-school'></i>", title:"Sri Anoor Vidyalaya MHSS, Muthur", desc:"School dental screening & awareness camp, held annually (2022–2025)."},
-  {ic:"<i class='fa-solid fa-handshake-angle'></i>", title:"NSS Public Camp, Kottaikattu Valasu", desc:"Public dental screening and oral health awareness camp."},
-  {ic:"<i class='fa-solid fa-handshake-angle'></i>", title:"NSS Public Camp, Panapalayam", desc:"Community dental screening and awareness camp."},
-  {ic:"<i class='fa-solid fa-school'></i>", title:"Thamarai MHSS, Thamaraipalayam", desc:"Awareness camp for school children on oral hygiene."},
-  {ic:"<i class='fa-solid fa-school'></i>", title:"Sri Ragavendra Vidyalaya Nursery, Pallakattur", desc:"School dental screening and awareness camp in Kodumudi."},
-  {ic:"<i class='fa-solid fa-school'></i>", title:"Venus Global Campus, Punnamchathiram", desc:"School dental screening and awareness camp."},
-  {ic:"<i class='fa-solid fa-bus'></i>", title:"Karka Kasadara Kids School, Kodumudi", desc:"Dental field trip hosted at the clinic for kindergarten children."}
+  {ic:"<i class='fa-solid fa-school'></i>", title:"Sri Anoor Vidyalaya MHSS, Muthur", desc:"School dental screening & awareness camp, held annually (2022–2025).", img:"images/schools/school-img1.png"},
+  {ic:"<i class='fa-solid fa-handshake-angle'></i>", title:"NSS Public Camp, Kottaikattu Valasu", desc:"Public dental screening and oral health awareness camp.", img:"images/schools/school-img2.png"},
+  {ic:"<i class='fa-solid fa-handshake-angle'></i>", title:"NSS Public Camp, Panapalayam", desc:"Community dental screening and awareness camp.", img:"images/schools/school-img7.png"},
+  {ic:"<i class='fa-solid fa-school'></i>", title:"Thamarai MHSS, Thamaraipalayam", desc:"Awareness camp for school children on oral hygiene.", img:"images/schools/school-img3.png"},
+  {ic:"<i class='fa-solid fa-school'></i>", title:"Sri Ragavendra Vidyalaya Nursery, Pallakattur", desc:"School dental screening and awareness camp in Kodumudi.", img:"images/schools/school-img4.png"},
+  {ic:"<i class='fa-solid fa-school'></i>", title:"Venus Global Campus, Punnamchathiram", desc:"School dental screening and awareness camp.", img:"images/schools/school-img5.png"},
+  {ic:"<i class='fa-solid fa-bus'></i>", title:"Karka Kasadara Kids School, Kodumudi", desc:"Dental field trip hosted at the clinic for kindergarten children.", img:"images/schools/school-img6.png"}
 ];
 
 const faqs = [
@@ -1299,7 +1332,6 @@ const schoolGalleryImages = [
   "images/community/community-img4.png",
   "images/community/community-img5.png",
   "images/community/community-img7.png",
-  "images/community/community-img8.png",
   "images/community/community-img9.png",
   "images/community/community-img10.png",
   "images/community/community-img11.png",
@@ -1383,8 +1415,11 @@ document.getElementById('processTrack').innerHTML = processSteps.map((p,i)=>`
 
 document.getElementById('campsGrid').innerHTML = camps.map((c,i)=>`
   <div class="camp-card card reveal" style="--i:${i}">
-    <div class="camp-ic">${c.ic}</div>
-    <div><h4>${c.title}</h4><p>${c.desc}</p></div>
+    <div class="camp-img-wrap"><img src="${c.img}" class="camp-img" alt="${c.title}"></div>
+    <div class="camp-body">
+      <div class="camp-ic">${c.ic}</div>
+      <div><h4>${c.title}</h4><p>${c.desc}</p></div>
+    </div>
   </div>`).join('');
 
 document.getElementById('insGrid').innerHTML = insurance.map((ins,i)=>`
@@ -1546,14 +1581,10 @@ document.getElementById('testiPrev').addEventListener('click', ()=>{ testiIndex 
 let testiAuto = setInterval(()=>{ testiIndex = (testiIndex+1)%testimonials.length; updateTesti(); }, 6000);
 document.querySelector('.testi-track-wrap').addEventListener('mouseenter', ()=>clearInterval(testiAuto));
 
-/* ============================= BEFORE/AFTER SLIDER ============================= */
-const baSlider = document.getElementById('baSlider');
-const baHandle = document.getElementById('baHandle');
-const baBefore = document.querySelector('.ba-before');
-const baAfter = document.querySelector('.ba-after');
+/* ============================= BEFORE/AFTER CAROUSEL JS ============================= */
+const baTrack = document.getElementById('baTrack');
 const baDotsContainer = document.getElementById('baDots');
 
-// Update this array with your actual before/after image paths
 const baSlides = [
   { before: 'images/before-and-after/befor-after-img11.png', after: 'images/before-and-after/befor-after-img1.png' },
   { before: 'images/before-and-after/befor-after-img21.png', after: 'images/before-and-after/befor-after-img2.png' },
@@ -1564,49 +1595,112 @@ const baSlides = [
   { before: 'images/before-and-after/befor-after-img81.png', after: 'images/before-and-after/befor-after-img8.png' }
 ];
 
-let currentBaIndex = 0;
+if(baTrack) {
+  baTrack.innerHTML = baSlides.map((slide, i) => `
+    <div class="ba-slider" data-index="${i}">
+      <div class="ba-before" style="background-image:url('${slide.before}')"></div>
+      <div class="ba-after" style="background-image:url('${slide.after}')"></div>
+      <div class="ba-label before">Before</div>
+      <div class="ba-label after">After</div>
+      <div class="ba-handle" style="left:50%"><div class="ba-knob"><i class="fa-solid fa-arrows-left-right"></i></div></div>
+    </div>
+  `).join('');
 
-function renderBaSlide(index) {
-  currentBaIndex = index;
-  const slide = baSlides[index];
-  baBefore.style.backgroundImage = `url('${slide.before}')`;
-  baAfter.style.backgroundImage = `url('${slide.after}')`;
-  
-  if (baDotsContainer) {
-    baDotsContainer.innerHTML = '';
-    baSlides.forEach((s, i) => {
-      const btn = document.createElement('button');
-      if (i === index) btn.classList.add('active');
-      btn.addEventListener('click', () => {
-        renderBaSlide(i);
-        setBa(50);
-      });
-      baDotsContainer.appendChild(btn);
-    });
+  let baVisibleCards = window.innerWidth > 1000 ? 3 : window.innerWidth > 600 ? 2 : 1;
+  window.addEventListener('resize', () => { 
+    baVisibleCards = window.innerWidth > 1000 ? 3 : window.innerWidth > 600 ? 2 : 1; 
+    updateBaCarousel(); 
+  });
+
+  let baIndex = 0;
+  let baAuto = setInterval(nextBaSlide, 4500);
+  const baWrap = document.querySelector('.ba-carousel-wrap');
+  baWrap.addEventListener('mouseenter', () => clearInterval(baAuto));
+  baWrap.addEventListener('mouseleave', () => baAuto = setInterval(nextBaSlide, 4500));
+
+  function updateBaCarousel() {
+    const maxIndex = Math.max(0, baSlides.length - baVisibleCards);
+    if (baIndex > maxIndex) baIndex = maxIndex;
+    if (baIndex < 0) baIndex = 0;
+    
+    const firstSlide = baTrack.firstElementChild;
+    const itemWidth = firstSlide ? firstSlide.getBoundingClientRect().width : 0;
+    baTrack.style.transform = `translateX(-${baIndex * (itemWidth + 24)}px)`;
+    
+    if (baDotsContainer) {
+      baDotsContainer.innerHTML = '';
+      const stops = maxIndex + 1;
+      for (let i = 0; i < stops; i++) {
+         const btn = document.createElement('button');
+         if (i === baIndex) btn.classList.add('active');
+         btn.addEventListener('click', () => { baIndex = i; updateBaCarousel(); });
+         baDotsContainer.appendChild(btn);
+      }
+    }
   }
-}
 
-function setBa(pct){
-  pct = Math.max(4, Math.min(96, pct));
-  baAfter.style.clipPath = `inset(0 ${100-pct}% 0 0)`;
-  baHandle.style.left = pct + '%';
-}
-let baDragging = false;
-function baFromEvent(e){
-  const rect = baSlider.getBoundingClientRect();
-  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-  return ((clientX - rect.left)/rect.width)*100;
-}
-baSlider.addEventListener('mousedown', (e)=>{ baDragging = true; setBa(baFromEvent(e)); });
-window.addEventListener('mousemove', (e)=>{ if(baDragging) setBa(baFromEvent(e)); });
-window.addEventListener('mouseup', ()=>baDragging=false);
-baSlider.addEventListener('touchstart', (e)=>{ baDragging = true; setBa(baFromEvent(e)); });
-baSlider.addEventListener('touchmove', (e)=>{ if(baDragging) setBa(baFromEvent(e)); });
-window.addEventListener('touchend', ()=>baDragging=false);
+  function nextBaSlide() {
+    const maxIndex = Math.max(0, baSlides.length - baVisibleCards);
+    if (baIndex >= maxIndex) baIndex = 0; 
+    else baIndex++;
+    updateBaCarousel();
+  }
 
-// Initialize Slider
-renderBaSlide(0);
-setBa(50);
+  let baDraggingParams = null;
+
+  function setBaPos(slider, handle, after, pct) {
+    pct = Math.max(0, Math.min(100, pct));
+    const finalPct = Math.max(4, Math.min(96, pct));
+    after.style.clipPath = `inset(0 ${100 - finalPct}% 0 0)`;
+    handle.style.left = finalPct + '%';
+  }
+
+  function baEventPct(e, sliderElement) {
+    const rect = sliderElement.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    return ((clientX - rect.left) / rect.width) * 100;
+  }
+
+  baTrack.addEventListener('mousedown', (e) => {
+    const slider = e.target.closest('.ba-slider');
+    if (!slider) return;
+    baDraggingParams = {
+      slider,
+      handle: slider.querySelector('.ba-handle'),
+      after: slider.querySelector('.ba-after')
+    };
+    setBaPos(baDraggingParams.slider, baDraggingParams.handle, baDraggingParams.after, baEventPct(e, baDraggingParams.slider));
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (baDraggingParams) {
+      setBaPos(baDraggingParams.slider, baDraggingParams.handle, baDraggingParams.after, baEventPct(e, baDraggingParams.slider));
+    }
+  });
+  document.addEventListener('mouseup', () => {
+    if(baDraggingParams) baDraggingParams = null;
+  });
+
+  baTrack.addEventListener('touchstart', (e) => {
+    const slider = e.target.closest('.ba-slider');
+    if (!slider) return;
+    baDraggingParams = {
+      slider,
+      handle: slider.querySelector('.ba-handle'),
+      after: slider.querySelector('.ba-after')
+    };
+    setBaPos(baDraggingParams.slider, baDraggingParams.handle, baDraggingParams.after, baEventPct(e, baDraggingParams.slider));
+  });
+
+  document.addEventListener('touchmove', (e) => {
+    if (baDraggingParams) {
+      setBaPos(baDraggingParams.slider, baDraggingParams.handle, baDraggingParams.after, baEventPct(e, baDraggingParams.slider));
+    }
+  });
+  document.addEventListener('touchend', () => baDraggingParams = null);
+
+  setTimeout(updateBaCarousel, 250);
+}
 
 
 /* ============================= THEME TOGGLE ============================= */
@@ -1629,10 +1723,7 @@ document.getElementById('bookingForm').addEventListener('submit', (e)=>{
 document.getElementById('hamburger').addEventListener('click', ()=>{
   const links = document.querySelector('.nav-links');
   const isOpen = links.style.display === 'flex';
-  links.style.cssText = isOpen ? '' : `
-    display:flex; position:absolute; top:70px; left:16px; right:16px; flex-direction:column;
-    background:rgba(255,255,255,.97); border-radius:20px; padding:12px; box-shadow:0 20px 40px rgba(10,44,92,.18); gap:2px;
-  `;
+  links.style.cssText = isOpen ? '' : "display:flex; position:absolute; top:70px; left:16px; right:16px; flex-direction:column; background:rgba(255,255,255,.97); border-radius:20px; padding:12px; box-shadow:0 20px 40px rgba(10,44,92,.18); gap:2px;";
 });
 
 /* ============================= DYNAMIC COPYRIGHT ============================= */
