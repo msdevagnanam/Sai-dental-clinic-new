@@ -71,7 +71,7 @@ body{
 }
 img{max-width:100%; display:block;}
 a{color:inherit; text-decoration:none;}
-button{font-family:inherit; cursor:pointer;}
+button{font-family:inherit; cursor:pointer; color:inherit;}
 ul{list-style:none;}
 .container{max-width:1240px; margin:0 auto; padding:0 32px;}
 section{position:relative;}
@@ -149,6 +149,7 @@ html[data-theme="dark"] .nav.scrolled .nav-inner{ background:rgba(9,20,38,.75); 
 .brand img{height:38px; width:auto;}
 .brand-text{font-family:var(--font-display); font-weight:800; font-size:1.02rem; color:var(--navy); line-height:1.1;}
 html[data-theme="dark"] .brand-text{ color:#fff;}
+html[data-theme="dark"] .brand img{ filter: brightness(0) invert(1); }
 .brand-text span{display:block; font-family:var(--font-body); font-weight:500; font-size:.62rem; letter-spacing:.14em; color:var(--azure); text-transform:uppercase; margin-top:2px;}
 
 .nav-links{display:flex; gap:2px; align-items:center;}
@@ -638,13 +639,17 @@ html[data-theme="dark"] .doc-tags span{color:#fff;}
 .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
 .form-field{display:flex; flex-direction:column; gap:7px; margin-bottom:16px;}
 .form-field.full{grid-column:1/-1;}
-.form-field label{font-size:.78rem; font-weight:700; color:var(--navy); letter-spacing:.02em;}
+.form-field label{font-size:.72rem; font-weight:700; color:var(--navy); letter-spacing:.05em; text-transform:uppercase; margin-left:4px;}
 .form-field input, .form-field select, .form-field textarea{
-  padding:13px 16px; border-radius:12px; border:1.5px solid var(--line); font-family:inherit; font-size:.92rem;
-  background:#fbfdff; color:var(--ink); transition:all .3s ease;
+  width:100%; box-sizing:border-box;
+  padding:14px 18px; border-radius:12px; border:1px solid #dbe3ed; font-family:inherit; font-size:.95rem;
+  background:#fff; color:var(--navy); transition:all .3s ease; box-shadow:inset 0 2px 4px rgba(10,44,92,.02);
+}
+.form-field input:hover, .form-field select:hover, .form-field textarea:hover{
+  border-color:#b9cbe0;
 }
 .form-field input:focus, .form-field select:focus, .form-field textarea:focus{
-  outline:none; border-color:var(--azure); box-shadow:0 0 0 4px rgba(30,155,233,.14);
+  outline:none; border-color:var(--azure); box-shadow:0 0 0 4px rgba(30,155,233,.14), inset 0 2px 4px rgba(10,44,92,.02);
 }
 .book-form .btn{width:100%; margin-top:6px;}
 .form-note{font-size:.75rem; color:var(--ink-soft); margin-top:14px; text-align:center;}
@@ -700,6 +705,7 @@ html[data-theme="dark"] footer{background:#050e1f;}
 .fw-wa{background:#25D366;}
 .fw-call{background:var(--grad-brand);}
 .fw-top{background:var(--white); color:var(--navy); border:1px solid var(--line); width:46px; height:46px; font-size:1.1rem; opacity:0; pointer-events:none; transform:translateY(10px);}
+html[data-theme="dark"] .fw-top{color:var(--sky);}
 .fw-top.show{opacity:1; pointer-events:auto; transform:translateY(0);}
 .fw-ping{position:absolute; inset:0; border-radius:50%; background:#25D366; animation:ping 2.2s cubic-bezier(0,0,.2,1) infinite;}
 @keyframes ping{75%,100%{transform:scale(1.7); opacity:0;}}
@@ -735,8 +741,9 @@ html[data-theme="dark"] .fca-text{color:#fff;}
 .list-card{padding:30px; text-align:left;}
 .list-card.full-span{grid-column:1 / -1;}
 .list-card h4{color:var(--navy); margin-bottom:12px; font-size:1.2rem;}
-.list-card ul{padding-left:22px; color:var(--text);}
-.list-card li{margin-bottom:10px;}
+.list-card ul{padding-left:0; color:var(--text); list-style:none;}
+.list-card li{margin-bottom:12px; position:relative; padding-left:20px; line-height:1.6;}
+.list-card li::before{content:""; position:absolute; left:0; top:8px; width:7px; height:7px; border-radius:50%; background:var(--azure);}
 
 /* ============================= RESPONSIVE ============================= */
 @media (max-width:1080px){
@@ -772,7 +779,9 @@ html[data-theme="dark"] .fca-text{color:#fff;}
   .ba-slider{aspect-ratio:4/3;}
   .form-grid{grid-template-columns:1fr;}
   .footer-grid{grid-template-columns:1fr;}
-  .emg-card{flex-direction:column; align-items:flex-start;}
+  .emg-card{flex-direction:column; align-items:stretch; gap:20px;}
+  .emg-actions, .hero-ctas{flex-direction:column; width:100%;}
+  .emg-actions .btn, .hero-ctas .btn{width:100%; justify-content:center; text-align:center;}
   .floating-widgets{right:16px; bottom:16px;}
 }
 @media (max-width:480px){
@@ -1129,7 +1138,7 @@ html[data-theme="dark"] .fca-text{color:#fff;}
       <div id="formFields">
         <div class="form-grid">
           <div class="form-field"><label for="fname">Full name</label><input id="fname" type="text" placeholder="Your name" required></div>
-          <div class="form-field"><label for="fphone">Phone number</label><input id="fphone" type="tel" placeholder="+91 98xxx xxxxx" required></div>
+          <div class="form-field"><label for="fphone">Phone number</label><input id="fphone" type="tel" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9+ ]/g, '')" placeholder="+91 98xxx xxxxx" required></div>
         </div>
         <div class="form-grid">
           <div class="form-field"><label for="fservice">Service needed</label>
